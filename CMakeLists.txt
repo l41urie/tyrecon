@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.19)
 
 project(ada)
 
-add_compile_options(
+add_subdirectory(contrib)
+
+set(ADA_COMPILE_OPTIONS
     -std=c++23
 )
 

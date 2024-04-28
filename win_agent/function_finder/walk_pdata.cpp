@@ -11,6 +11,7 @@ Function rebase_rtfunction(RUNTIME_FUNCTION const *const rtfunction,
       .start = (void *)(base + rtfunction->BeginAddress),
       .end = (void *)(base + rtfunction->EndAddress),
       .parameter_count = ~0u,
+      .type = FunctionKind::FRAME,
   };
 }
 

@@ -1,8 +1,14 @@
 #pragma once
-#include "meta.hpp"
 #include "../module/module.hpp"
+#include "meta.hpp"
 
 namespace ada {
+
+enum class FunctionKind {
+  FRAME,
+  LEAF,
+};
+
 struct Function {
   // Points to the first instruction of the function
   void *start;
@@ -12,6 +18,8 @@ struct Function {
 
   // number of parameters, ~0 if that's unknown.
   u32 parameter_count;
+
+  FunctionKind type;
 };
 
 void find_functions(Module const &mod);

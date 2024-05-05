@@ -12,3 +12,5 @@ using u32 = uint32_t;
 using u64 = uint64_t;
 
 #define ASSERT(cond) if(!(cond)) __debugbreak();
+
+#define DBG_PAUSE(msg...) { printf(msg); system("pause"); }

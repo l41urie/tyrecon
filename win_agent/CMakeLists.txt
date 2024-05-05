@@ -4,7 +4,9 @@ plat_init.cpp
 
 configuration.cpp
 
-debugger/veh.cpp
+instrumentation/veh.cpp
+instrumentation/fault_inducer.cpp
+instrumentation/function_replacement.cpp
 
 module/module.cpp
 

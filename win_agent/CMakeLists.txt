@@ -18,6 +18,7 @@ function_finder/walk_pdata.cpp
 target_include_directories(win_agent PRIVATE
 ${PROJECT_SOURCE_DIR}/contrib/zydis/include
 ${PROJECT_SOURCE_DIR}/contrib/zydis/dependencies/zycore/include
+${PROJECT_SOURCE_DIR}/win_agent/
 )
 
 target_link_directories(win_agent PRIVATE

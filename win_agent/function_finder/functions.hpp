@@ -16,6 +16,10 @@ struct Function {
   // points behind the last instruction of the function, nullptr if unknown.
   void *end;
 
+  [[nodiscard]] inline bool contains(void *ptr) const {
+    return ptr >= start && ptr < end;
+  }
+
   // number of parameters, ~0 if that's unknown.
   u32 parameter_count;
 

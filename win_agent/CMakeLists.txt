@@ -7,6 +7,7 @@ configuration.cpp
 instrumentation/veh.cpp
 instrumentation/fault_inducer.cpp
 instrumentation/function_replacement.cpp
+instrumentation/execution_context.cpp
 
 module/module.cpp
 

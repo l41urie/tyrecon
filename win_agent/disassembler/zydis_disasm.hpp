@@ -6,6 +6,7 @@ namespace ada {
 struct Instruction {
   ZydisDecodedInstruction info;
   ZydisDecodedOperand operands[ZYDIS_MAX_OPERAND_COUNT];
+  void *disassembled_at; // pointer to this instruction where it was disassembled
 
   ZydisDecodedInstruction *operator->() { return &info; }
 
@@ -34,6 +35,7 @@ struct FunctionDisassembler {
                                              &out.info, out.operands)))
       return false;
 
+    out.disassembled_at = ip;
     ip = (u8 *)ip + out.info.length;
     return true;
   }

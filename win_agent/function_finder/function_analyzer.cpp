@@ -21,7 +21,7 @@ void find_leaf_functions(Module const &mod, std::vector<Function> &list) {
       */
       if (inst.is_a(ZYDIS_MNEMONIC_CALL)) {
         ZyanU64 addr;
-        if (inst.operand_as_address(0, (ZyanU64)dis.ip, addr)) {
+        if (inst.operand_as_address(0, (ZyanU64)inst.disassembled_at, addr)) {
           auto it = std::find_if(
               list.begin(), list.end(),
               [addr](Function const &fn) { return fn.start == (void *)addr; });
@@ -60,7 +60,7 @@ void find_leaf_functions(Module const &mod, std::vector<Function> &list) {
         std::find_if(list.begin(), list.end(), [&leaf](Function const &fn) {
           if (fn.end == nullptr)
             return false; // unsure
-          return leaf.start >= fn.start && leaf.start < fn.end;
+          return fn.contains(leaf.start);
         });
 
     if (found == list.end())

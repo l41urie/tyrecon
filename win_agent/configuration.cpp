@@ -1,9 +1,11 @@
 #include <meta.hpp>
 #include <windows.h>
 
-
 #include "function_finder/functions.hpp"
+#include "instrumentation/fault_inducer.hpp"
 #include "instrumentation/function_replacement.hpp"
+#include "instrumentation/veh.hpp"
+#include "instrumentation/execution_context.hpp"
 
 /*
   This file is meant to be a user-defined file that tells ada
@@ -11,16 +13,6 @@
 */
 
 namespace ada {
-
-int square(int a) { return a * a; }
-
-FunctionReplacement<decltype(&square)> square_replacement;
-int fakesquare(int a) {
-  printf("spoofing real value for %d: %d -> %d\n", a, square_replacement(a),
-         a * 2);
-  return a * 2;
-}
-
 void configure() {
   // setup modules to monitor
   // we only care about the main program in this example
@@ -28,13 +20,24 @@ void configure() {
   // setup function table
   find_functions((void *)GetModuleHandleA("test_program.exe"));
 
-  int real = square(3);
+  DBG_PAUSE("attach");
+  init_veh();
 
-  square_replacement = *ada::replace_function(square);
-  int real2 = square(3);
-  *square_replacement.jmp_target = fakesquare;
-  int fake = square(3);
+  ada::for_each_function([](ada::Function const &fn) -> bool {
+    // install Instrumentation on every function
+    if (!global_instrumentations.instrument(fn)) {
+      printf("failed to install instrumentation on %p\n", fn.start);
+    } else {
+      printf("installed instrumentation on %p\n", fn.start);
+    }
+    return false; // don't exit
+  });
 
-  printf("real: %d & %d, fake %d\n", real, real2, fake);
+  global_instrumentations.function_instrumentation_callback = [](FunctionExecutionContext const &ctx)
+  {
+    printf("Hit function at %p returns to %p\n", ctx.rip(), ctx.return_address());
+    for(auto i = 0; i < 8; ++i)
+      printf("\t[%d]: %llx\n", i, ctx.get_arg(i) & 0xFFFFFFFF);
+  };
 }
 } // namespace ada

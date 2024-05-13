@@ -13,9 +13,15 @@ u64 ExecutionContext::r11() const { return ctx->R11; }
 u64 ExecutionContext::rsp() const { return ctx->Rsp; }
 u64 ExecutionContext::rbp() const { return ctx->Rbp; }
 
-u64 FunctionExecutionContext::get_arg(u64 index) {
-  // https://learn.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-170
-  // "Integer arguments are passed in registers RCX, RDX, R8, and R9"
+u64 FunctionExecutionContext::get_arg(u64 index) const {
+  /* https://learn.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-170
+   Integer arguments are passed in registers RCX, RDX, R8, and R9
+   By default, the x64 calling convention passes the first four
+   arguments to a function in registers.
+   The registers used for these arguments depend on the position and type of
+   the argument.
+   Remaining arguments get pushed on the stack in right-to-left order.
+  */
   switch (index) {
   case 0:
     return rcx();
@@ -30,11 +36,14 @@ u64 FunctionExecutionContext::get_arg(u64 index) {
   }
 
   // fifth argument and higher gets passed on the stack
-  // rsp + 0 = return address from the previously executed CALL
-  // rsp + 8 = fifth argument
-  u64 const ptr_add = (index - 3) * 8;
-  u64 *arg = (u64*)(rsp() + ptr_add);
+  // we don't need to adjust by parameter count, because of shadow space
+  // but we do need to adjust for the return address pushed by CALL
+  u64 const ptr_add = (index + 1) * 8;
+  u64 *arg_on_stack = (u64 *)(rsp() + ptr_add);
+  return *arg_on_stack;
+}
 
-  return *arg;
+void *FunctionExecutionContext::return_address() const {
+  return *(void **)rsp();
 }
 } // namespace ada

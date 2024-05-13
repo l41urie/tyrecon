@@ -13,6 +13,7 @@ module/module.cpp
 function_finder/find_functions.cpp
 function_finder/function_analyzer.cpp
 function_finder/walk_pdata.cpp
+function_finder/function_processing.cpp
 )
 
 target_include_directories(win_agent PRIVATE

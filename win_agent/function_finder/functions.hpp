@@ -24,7 +24,11 @@ struct Function {
   u32 parameter_count;
 
   FunctionKind type;
+
+  // Points behind the first instruction
+  void *second_instruction = nullptr;
 };
 
 void find_functions(Module const &mod);
+void for_each_function(bool (*cb)(ada::Function const &fn));
 } // namespace ada

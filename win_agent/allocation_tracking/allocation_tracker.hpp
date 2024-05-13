@@ -1,5 +1,6 @@
 #pragma once
 #include <optional>
+#include <set>
 #include <vector>
 
 namespace ada {
@@ -16,6 +17,7 @@ struct Allocation {
   void *ptr;
   size_t size;
   void *allocation_callsite;
+  std::set<void *> reallocation_sites;
   AllocationStatus status;
 };
 
@@ -24,7 +26,7 @@ struct AllocationList {
   // TODO: add lock
   ContainerType allocations;
 
-  void track(Allocation const &a);
+  void track_new(Allocation const &a);
 
   enum FreeStatus {
     OK,           // Object has been free'd successfully
@@ -33,6 +35,9 @@ struct AllocationList {
   };
 
   FreeStatus mark_free(void *ptr);
+
+  void mark_reallocated(void *block, void *new_block, void *from,
+                        size_t new_size);
 
   ContainerType::iterator find(void *ptr);
 

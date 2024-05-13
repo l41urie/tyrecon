@@ -17,8 +17,8 @@ std::optional<Allocation> AllocationList::lookup_alloc(void *ptr) {
   return *it;
 }
 
-void AllocationList::track(Allocation const &a) {
-  // TODO: handle re-assigning of memory
+void AllocationList::track_new(Allocation const &a) {
+  // TODO: find conflicting allocations and remove
   allocations.emplace_back(a);
 }
 
@@ -32,5 +32,20 @@ AllocationList::FreeStatus AllocationList::mark_free(void *ptr) {
 
   it->status = FREED;
   return OK;
+}
+
+void AllocationList::mark_reallocated(void *block, void *new_block, void *from,
+                                      size_t new_size) {
+  auto it = find(block);
+  if (it == allocations.end())
+    return; // attempting to reallocate nonexistent allocation
+
+  // setup new fields
+  it->status = REALLOCATED;
+  it->ptr = new_block;
+  it->size = new_size;
+  it->reallocation_sites.emplace(from);
+
+  // TODO: Check for overlap and mark unused areas as free'd?
 }
 } // namespace ada

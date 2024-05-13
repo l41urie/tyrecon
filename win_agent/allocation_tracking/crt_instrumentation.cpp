@@ -25,7 +25,7 @@ void *malloc(size_t size) {
   if (mod == ourmod)
     return result;
 
-  global_allocations.track({
+  global_allocations.track_new({
       .ptr = result,
       .size = size,
       .allocation_callsite = ret,
@@ -45,6 +45,8 @@ void free(void *ptr) {
 
 void *realloc(void *block, size_t size) {
   auto result = replacements::realloc(block, size);
+  void *ret = _ReturnAddress();
+  global_allocations.mark_reallocated(block, result, ret, size);
   return result;
 }
 

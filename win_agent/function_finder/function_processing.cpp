@@ -4,7 +4,9 @@
 namespace ada {
 void process_functions(Module const &mod, std::vector<Function> &list) {
   // setup |second_instruction| field
-  for (auto &fn : list) {
+  for (auto it = list.begin(); it != list.end();) {
+    auto &fn = *it;
+
     void *pseudo_end = fn.end ? fn.end : std::numeric_limits<void *>::max();
     FunctionDisassembler dis(fn.start, fn.end);
     Instruction inst;
@@ -13,10 +15,12 @@ void process_functions(Module const &mod, std::vector<Function> &list) {
       fn.second_instruction = dis.ip;
     }
     else {
-      // TODO: remove function?
-      //       should always be able to disassemble.
-      ASSERT(false);
+      // Remove all functions that can't be disassembled.
+      it = list.erase(it);
+      continue;
     }
+
+    ++it;
   }
 }
 } // namespace ada

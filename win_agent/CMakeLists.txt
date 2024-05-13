@@ -9,6 +9,10 @@ instrumentation/fault_inducer.cpp
 instrumentation/function_replacement.cpp
 instrumentation/execution_context.cpp
 
+allocation_tracking/allocation_tracker.cpp
+allocation_tracking/crt_instrumentation.cpp
+allocation_tracking/track_usage.cpp
+
 module/module.cpp
 
 function_finder/find_functions.cpp

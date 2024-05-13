@@ -21,7 +21,8 @@ struct Function {
   }
 
   // number of parameters, ~0 if that's unknown.
-  u32 parameter_count;
+  static auto constexpr PARAMTER_COUNT_UNKNOWN = ~0;
+  u32 parameter_count = PARAMTER_COUNT_UNKNOWN;
 
   FunctionKind type;
 
@@ -30,5 +31,7 @@ struct Function {
 };
 
 void find_functions(Module const &mod);
+
 void for_each_function(bool (*cb)(ada::Function const &fn));
+ada::Function *find_in_list(void *start);
 } // namespace ada

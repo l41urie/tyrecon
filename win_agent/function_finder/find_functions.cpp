@@ -25,4 +25,16 @@ void for_each_function(bool (*cb)(ada::Function const &fn)) {
       break;
   }
 }
+
+ada::Function *find_in_list(void *start) {
+  auto it =
+      std::find_if(g_functions.begin(), g_functions.end(),
+                   [&start](Function const &f) { return f.start == start; });
+
+  if (it == g_functions.end())
+    return nullptr;
+
+  return &(*it);
+}
+
 } // namespace ada

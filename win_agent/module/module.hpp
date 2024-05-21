@@ -1,4 +1,5 @@
 #pragma once
+#include "memory_block.hpp"
 #include "meta.hpp"
 #include <string>
 #include <vector>
@@ -6,14 +7,12 @@
 namespace ada {
 struct Section {
   std::string name;
+  Block memory_block;
 
-  void *begin, *end;
-
-  bool contains(void *p) { return p >= begin && p < end; }
+  PURE NODISCARD bool contains(void *p) const { return memory_block.contains((u64)p); }
 };
 
-struct NamedFunction
-{
+struct NamedFunction {
   void *location;
   std::string name;
 };

@@ -19,12 +19,11 @@ Module::Module(void *image) : image(image) {
   u16 num_sections = nt->FileHeader.NumberOfSections;
   PIMAGE_SECTION_HEADER section = IMAGE_FIRST_SECTION(nt);
   for (u16 i = 0; i < num_sections; i++) {
-    sections.emplace_back(Section{
-        .name = std::string((char *)section->Name),
-        .begin = (void *)(base + section->VirtualAddress),
-        .end = (void *)(base + section->VirtualAddress +
-                        section->Misc.VirtualSize),
-    });
+    sections.emplace_back(
+        Section{.name = std::string((char *)section->Name),
+                .memory_block{(u64)(base + section->VirtualAddress),
+                              (u64)(base + section->VirtualAddress +
+                                    section->Misc.VirtualSize)}});
     section += 1;
   }
 

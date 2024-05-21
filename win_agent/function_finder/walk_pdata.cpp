@@ -26,8 +26,8 @@ void find_functions_pdata(Module const &mod, std::vector<ada::Function> &list) {
     return;
 
   // .pdata is really an array of RUNTIME_FUNCTION, walk it & insert into our list.
-  for (RUNTIME_FUNCTION const *cur = (RUNTIME_FUNCTION *)it->begin;
-       cur != it->end; cur++) {
+  for (RUNTIME_FUNCTION const *cur = (RUNTIME_FUNCTION *)it->memory_block.start;
+       cur != (void*)it->memory_block.end; cur++) {
     list.emplace_back(rebase_rtfunction(cur, (u8 *)mod.image));
   }
 

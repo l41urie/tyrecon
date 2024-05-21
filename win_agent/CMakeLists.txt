@@ -15,6 +15,9 @@ allocation_tracking/track_usage.cpp
 
 module/module.cpp
 
+rtti/rtti.cpp
+rtti/rtti_analyzer.cpp
+
 function_finder/find_functions.cpp
 function_finder/function_analyzer.cpp
 function_finder/walk_pdata.cpp
@@ -33,6 +36,7 @@ ${CMAKE_BINARY_DIR}/contrib/zydis
 
 target_link_libraries(win_agent PRIVATE
 zydis
+dbghelp
 )
 
 add_executable(ada_monitor

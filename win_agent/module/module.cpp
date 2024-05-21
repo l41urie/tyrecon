@@ -1,5 +1,6 @@
 #include "module.hpp"
 #include <windows.h>
+#include <Psapi.h>
 
 namespace ada {
 
@@ -26,6 +27,10 @@ Module::Module(void *image) : image(image) {
                                     section->Misc.VirtualSize)}});
     section += 1;
   }
+
+  MODULEINFO m;
+  GetModuleInformation(GetCurrentProcess(), (HMODULE)image, &m, sizeof(m));
+  memory_block = {(u64)image, (u64)image + m.SizeOfImage};
 
   // Fill exports
   auto const &export_dir =

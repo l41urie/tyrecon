@@ -16,7 +16,7 @@ struct Function {
   // points behind the last instruction of the function, nullptr if unknown.
   void *end;
 
-  [[nodiscard]] inline bool contains(void *ptr) const {
+  NODISCARDINL bool contains(void *ptr) const {
     return ptr >= start && ptr < end;
   }
 

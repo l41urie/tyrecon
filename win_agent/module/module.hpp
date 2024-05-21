@@ -7,9 +7,9 @@
 namespace ada {
 struct Section {
   std::string name;
-  Block memory_block;
+  ada::Block memory_block;
 
-  PURE NODISCARD bool contains(void *p) const { return memory_block.contains((u64)p); }
+  NODISCARDINL bool contains(void *p) const { return memory_block.contains((u64)p); }
 };
 
 struct NamedFunction {
@@ -20,12 +20,21 @@ struct NamedFunction {
 struct Module {
   std::string module_path;
   std::string_view name;
+  ada::Block memory_block;
   void *image;
 
   std::vector<Section> sections;
 
   std::vector<NamedFunction> exports;
   std::vector<NamedFunction> imports;
+
+  Section const *section(std::string const &symbol_name) const {
+    auto it =
+        std::find_if(sections.begin(), sections.end(),
+                     [&](Section const &s) { return s.name == symbol_name; });
+    return it == sections.end() ? nullptr : &(*it);
+  }
+  // TODO: add the same for |exports| and |imports|, by templates?
 
   Module(void *image);
 };

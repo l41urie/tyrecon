@@ -15,5 +15,12 @@ using u64 = uint64_t;
 
 #define DBG_PAUSE(msg...) { printf(msg); system("pause"); }
 
-#define PURE [[gnu::pure]]
 #define NODISCARD [[nodiscard]]
+
+#define NODISCARDINL [[nodiscard]] inline
+
+#define FWD_ITERATORS(member)                                                  \
+  auto begin() { return member.begin(); }                                      \
+  auto end() { return member.end(); }                                          \
+  auto begin() const { return member.begin(); }                                \
+  auto end() const { return member.end(); }

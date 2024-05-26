@@ -36,16 +36,38 @@ AllocationList::FreeStatus AllocationList::mark_free(void *ptr) {
 
 void AllocationList::mark_reallocated(void *block, void *new_block, void *from,
                                       size_t new_size) {
+  // can this be replaced by handling new / free?
   auto it = find(block);
   if (it == allocations.end())
     return; // attempting to reallocate nonexistent allocation
 
   // setup new fields
   it->status = REALLOCATED;
-  it->ptr = new_block;
-  it->size = new_size;
+  it->memory = {(u64)new_block, (u64)new_block + new_size};
   it->reallocation_sites.emplace(from);
 
   // TODO: Check for overlap and mark unused areas as free'd?
 }
+
+char const *status_to_string(AllocationStatus s) {
+  switch (s) {
+  case ALLOCATED:
+    return "ALLOCATED";
+  case REALLOCATED:
+    return "REALLOCATED";
+  case FREED:
+    return "FREED";
+    break;
+  }
+  return "?";
+}
+
+void AllocationList::print_list() {
+  printf("Allocations:\n");
+  for (auto const &alloc : allocations) {
+    printf("\t[%llX - %llX] %s <- %p\n", alloc.memory.start, alloc.memory.end,
+           status_to_string(alloc.status), alloc.allocation_callsite);
+  }
+}
+
 } // namespace ada

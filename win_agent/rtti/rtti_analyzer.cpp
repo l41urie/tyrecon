@@ -51,7 +51,6 @@ void find_dispatch_tables(ada::Module const &mod,
 #endif
 }
 
-
 // Performs dispatch table & rtti discovery
 void find_rtti(ada::Module const &mod)
 {

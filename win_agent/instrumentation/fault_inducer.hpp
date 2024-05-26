@@ -10,8 +10,7 @@ struct Violation;
 struct Function;
 struct FunctionExecutionContext;
 
-using FunctionInstrumentationCallbackFn =
-    void(FunctionExecutionContext const &ctx);
+using FunctionInstrumentationCallbackFn = void(FunctionExecutionContext &ctx);
 
 // Represents a software breakpoint using int3
 struct CodeInstrumentation {
@@ -34,8 +33,7 @@ struct CodeInstrumentation {
 struct InstrumentationHandler {
   std::vector<CodeInstrumentation> instrumented_instructions;
   FunctionInstrumentationCallbackFn *function_instrumentation_callback =
-      [](FunctionExecutionContext const &ctx) {};
-
+      [](FunctionExecutionContext &ctx) {};
   bool instrument(ada::Function const &fn);
   CodeInstrumentation *find_code_instrumentation(Violation const &v,
                                                  _EXCEPTION_POINTERS *eh);

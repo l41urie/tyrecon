@@ -10,7 +10,10 @@ template <typename T, typename PT = void> struct Rva {
 
   NODISCARDINL PT *rebase(ada::Block const &block) const {
     auto r = rebase(block.start);
-    return r < (PT*)block.end ? r : nullptr;
+    // should we check for overflow?
+
+    // r + 1 is checked to make sure the end is fully contained in the block
+    return ((r + 1) <= (PT *)block.end) ? r : nullptr;
   }
 };
 

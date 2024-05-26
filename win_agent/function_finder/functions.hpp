@@ -10,6 +10,7 @@ enum class FunctionKind {
 };
 
 struct Function {
+  // TODO: replace this with ada::Block
   // Points to the first instruction of the function
   void *start;
 
@@ -21,7 +22,7 @@ struct Function {
   }
 
   // number of parameters, ~0 if that's unknown.
-  static auto constexpr PARAMTER_COUNT_UNKNOWN = ~0;
+  static u32 constexpr PARAMTER_COUNT_UNKNOWN = ~0;
   u32 parameter_count = PARAMTER_COUNT_UNKNOWN;
 
   FunctionKind type;
@@ -33,5 +34,5 @@ struct Function {
 void find_functions(Module const &mod);
 
 void for_each_function(bool (*cb)(ada::Function const &fn));
-ada::Function *find_in_list(void *start);
+ada::Function *find_function(void *start);
 } // namespace ada

@@ -2,6 +2,7 @@
 #include <optional>
 #include <set>
 #include <vector>
+#include <memory_block.hpp>
 
 namespace ada {
 struct FunctionExecutionContext;
@@ -14,8 +15,7 @@ enum AllocationStatus {
 };
 
 struct Allocation {
-  void *ptr;
-  size_t size;
+  ada::Block memory;
   void *allocation_callsite;
   std::set<void *> reallocation_sites;
   AllocationStatus status;
@@ -42,6 +42,8 @@ struct AllocationList {
   ContainerType::iterator find(void *ptr);
 
   std::optional<Allocation> lookup_alloc(void *ptr);
+
+  void print_list();
 };
 
 inline AllocationList global_allocations;

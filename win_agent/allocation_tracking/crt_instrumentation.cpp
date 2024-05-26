@@ -26,13 +26,15 @@ void *malloc(size_t size) {
     return result;
 
   global_allocations.track_new({
-      .ptr = result,
-      .size = size,
+      .memory = {(u64)result, (u64)result + size},
       .allocation_callsite = ret,
       .status = ALLOCATED,
   });
 
+#if 0
   printf("malloc(%llu) -> %p\n", size, result);
+  global_allocations.print_list();
+#endif
 
   return result;
 }

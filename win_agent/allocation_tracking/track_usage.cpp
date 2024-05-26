@@ -1,6 +1,7 @@
 #include "allocation_tracker.hpp"
 #include "function_finder/functions.hpp"
 #include "instrumentation/execution_context.hpp"
+#include "instrumentation/stackwalk.hpp"
 
 namespace ada {
 void inspect_function_parameters(FunctionExecutionContext const &ctx,
@@ -18,6 +19,7 @@ void inspect_function_parameters(FunctionExecutionContext const &ctx,
         printf("Detected Use-after-free in %p with allocation %p "
                "allocated from %p\n",
                ctx.rip(), allocation->ptr, allocation->allocation_callsite);
+
       }
     }
   }

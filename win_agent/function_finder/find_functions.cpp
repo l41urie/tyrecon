@@ -6,10 +6,12 @@ namespace ada {
 std::vector<ada::Function> g_functions;
 
 void find_functions_pdata(Module const &mod, std::vector<ada::Function> &list);
-void find_leaf_functions(Module const &mod, std::vector<Function> &list);
-void process_functions(Module const &mod, std::vector<Function> &list);
+void find_leaf_functions(ada::Module const &mod,
+                         std::vector<ada::Function> &list);
+void process_functions(ada::Module const &mod,
+                       std::vector<ada::Function> &list);
 
-void find_functions(Module const &mod) {
+void find_functions(ada::Module const &mod) {
   // call into every strategy to discover functions
 
   find_functions_pdata(mod, g_functions);
@@ -26,7 +28,7 @@ void for_each_function(bool (*cb)(ada::Function const &fn)) {
   }
 }
 
-ada::Function *find_in_list(void *start) {
+ada::Function *find_function(void *start) {
   auto it =
       std::find_if(g_functions.begin(), g_functions.end(),
                    [&start](Function const &f) { return f.start == start; });

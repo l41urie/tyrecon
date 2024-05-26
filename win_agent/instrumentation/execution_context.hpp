@@ -1,5 +1,5 @@
 #include "meta.hpp"
-#include <optional>
+#include "stackwalk.hpp"
 
 // windows.h
 struct _EXCEPTION_POINTERS;
@@ -25,5 +25,8 @@ struct ExecutionContext {
 struct FunctionExecutionContext : ExecutionContext {
   u64 get_arg(u64 index) const;
   void *return_address() const;
+
+  ada::StackWalker stack_walk();
 };
+
 } // namespace ada

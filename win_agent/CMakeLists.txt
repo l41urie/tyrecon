@@ -8,6 +8,7 @@ instrumentation/veh.cpp
 instrumentation/fault_inducer.cpp
 instrumentation/function_replacement.cpp
 instrumentation/execution_context.cpp
+instrumentation/stackwalk.cpp
 
 allocation_tracking/allocation_tracker.cpp
 allocation_tracking/crt_instrumentation.cpp

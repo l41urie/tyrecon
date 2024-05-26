@@ -46,4 +46,8 @@ u64 FunctionExecutionContext::get_arg(u64 index) const {
 void *FunctionExecutionContext::return_address() const {
   return *(void **)rsp();
 }
+
+ada::StackWalker FunctionExecutionContext::stack_walk() {
+  return ada::StackWalker::attach(ctx);
+}
 } // namespace ada

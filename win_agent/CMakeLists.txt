@@ -15,6 +15,9 @@ allocation_tracking/allocation_tracker.cpp
 allocation_tracking/crt_instrumentation.cpp
 allocation_tracking/track_usage.cpp
 
+type_tracking/type_tracker.cpp
+type_tracking/instrumentation.cpp
+
 module/module.cpp
 
 rtti/rtti.cpp
@@ -24,6 +27,7 @@ function_finder/find_functions.cpp
 function_finder/function_analyzer.cpp
 function_finder/walk_pdata.cpp
 function_finder/function_processing.cpp
+function_finder/track_dynamic_dispatch.cpp
 )
 
 target_include_directories(win_agent PRIVATE

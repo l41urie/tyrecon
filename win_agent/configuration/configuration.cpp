@@ -6,7 +6,7 @@
 #include "function_finder/functions.hpp"
 #include "instrumentation/execution_context.hpp"
 #include "instrumentation/fault_inducer.hpp"
-#include "instrumentation/function_replacement.hpp"
+#include "type_tracking/type_tracker.hpp"
 #include "instrumentation/veh.hpp"
 #include "rtti/rtti.hpp"
 
@@ -52,7 +52,9 @@ void configure() {
         if (!fn)
           return;
 
-        inspect_function_parameters(ctx, fn);
+        check_use_after_free(ctx, fn);
+        track_dynamic_dispatch(ctx, fn);
+        track_type_usage(ctx, fn);
       };
 }
 

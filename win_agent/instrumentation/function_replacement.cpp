@@ -154,8 +154,11 @@ bool replace_function(void *fn, void ***jmp_to, void **copied) {
   }
 
   *copied = buf;
+
+#if 0
   INFO("Copied %llu instructions (%llu bytes) to %p\n", to_encode.size(),
        assembled, buf);
+#endif
 
   // Write a `jmp` into |fn| right behind what we copied
   AbsoluteJmp jmp;
@@ -175,17 +178,16 @@ bool replace_function(void *fn, void ***jmp_to, void **copied) {
   // finally, put a `jmp` to |fn| that jumps to |replacement_jmp|
   {
     // TODO: using VirtualProtect here is rather ugly
-    //       wrap this so we'll have an easier time when porting to different platforms.
-    
+    //       wrap this so we'll have an easier time when porting to different
+    //       platforms.
+
     DWORD old;
-    VirtualProtect(fn, AbsoluteJmp::size(), PAGE_EXECUTE_READWRITE,
-                   &old);
+    VirtualProtect(fn, AbsoluteJmp::size(), PAGE_EXECUTE_READWRITE, &old);
 
     jmp.set_target((u64)replacement_jmp);
     jmp.write_to(fn); // this will intercept any call to |fn|
 
-    VirtualProtect(fn, AbsoluteJmp::size(), old,
-                   &old);
+    VirtualProtect(fn, AbsoluteJmp::size(), old, &old);
   }
   return true;
 }

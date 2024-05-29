@@ -49,6 +49,5 @@ struct AllocationList {
 inline AllocationList global_allocations;
 
 bool install_crt_replacements();
-void inspect_function_parameters(FunctionExecutionContext const &ctx,
-                                 Function *fn);
+void check_use_after_free(FunctionExecutionContext const &ctx, Function *fn);
 } // namespace ada

@@ -2,12 +2,13 @@
 #include <algorithm>
 #include <meta.hpp>
 
+// TODO: this needs testing, im unsure if the part that splits stuff up works.
+
 namespace ada {
 AllocationList::ContainerType::iterator AllocationList::find(void *ptr) {
   return std::find_if(
-      allocations.begin(), allocations.end(), [&ptr](Allocation const &a) {
-        return ptr >= a.ptr && ptr < (void *)((u64)a.ptr + a.size);
-      });
+      allocations.begin(), allocations.end(),
+      [&ptr](Allocation const &a) { return a.memory.contains((u64)ptr); });
 }
 
 std::optional<Allocation> AllocationList::lookup_alloc(void *ptr) {
@@ -18,7 +19,30 @@ std::optional<Allocation> AllocationList::lookup_alloc(void *ptr) {
 }
 
 void AllocationList::track_new(Allocation const &a) {
-  // TODO: find conflicting allocations and remove
+  for (auto it = allocations.begin(); it != allocations.end();) {
+    // make sure to remove all collisions with the new block
+    if (it->memory.intersect(a.memory)) {
+      // it will get removed and replaced by new ones that don't collide.
+      auto const cuts = BlockCut::from_intersection(it->memory, a.memory);
+
+      for (auto const &cut : cuts) {
+        // we get all left-over memory blocks in here
+        // construct new allocation from |cut| and |it| and ensure they're
+        // marked as free'd
+        auto new_alloc = *it;
+        ASSERT(it->status == FREED);
+
+        new_alloc.memory = cut;
+        allocations.emplace_back(new_alloc);
+      }
+
+      // erase and start over to avoid issues with the iterator changing because
+      // of the insert this can probably be done much cleaner
+      allocations.erase(it);
+      it = allocations.begin();
+    } else
+      ++it;
+  }
   allocations.emplace_back(a);
 }
 

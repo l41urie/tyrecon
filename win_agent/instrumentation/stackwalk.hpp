@@ -12,12 +12,29 @@ namespace ada {
 struct Call {
   u64 instruction_ptr;
   u64 ret_addr;
+
+  bool operator==(Call const &other) {
+    return instruction_ptr == other.instruction_ptr &&
+           ret_addr == other.ret_addr;
+  }
 };
 
 // represents a callstack
 struct CallStack {
+  // TODO: filter recursion?
   std::vector<Call> calls;
   FWD_ITERATORS(calls);
+
+  bool operator==(CallStack const &other) {
+    if (calls.size() != other.calls.size())
+      return false;
+
+    for (auto i = 0; i < calls.size(); ++i)
+      if (calls[i] != other.calls[i])
+        return false;
+
+    return true;
+  }
 };
 
 // utility to capture a callstack

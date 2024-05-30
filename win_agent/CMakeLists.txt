@@ -2,8 +2,8 @@
 add_library(win_agent SHARED
 plat_init.cpp
 
-configuration/call_analysis.cpp
 configuration/configuration.cpp
+exfiltration/exfiltration.cpp
 
 instrumentation/veh.cpp
 instrumentation/fault_inducer.cpp

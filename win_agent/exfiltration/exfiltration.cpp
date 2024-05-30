@@ -61,8 +61,8 @@ void exfiltrate_all() {
     char vt_name[256] = "";
     format_va((void *)t.vtable.start, vt_name, 256);
 
-    println("%s (%llX functions)%s%s: ", vt_name, t.vtable.len() / 8,
-            t.rtti ? " - " : "", t.name.c_str());
+    println("%s%s%s (%llX functions)", t.name.c_str(), t.rtti ? " - " : "",
+            vt_name, t.vtable.len() / 8);
     if (t.allocation_size != 0)
       println("\tguessed size: %llx", t.allocation_size);
 

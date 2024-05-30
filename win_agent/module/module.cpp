@@ -9,7 +9,7 @@ Module::Module(void *image) : image(image) {
   auto len = GetModuleFileNameA((HMODULE)image, path, MAX_PATH);
 
   module_path = std::string(path, len);
-  name = &*(module_path.begin() + module_path.find_last_of('\\'));
+  name = &*(module_path.begin() + module_path.find_last_of('\\') + 1);
 
   // important data structures
   u8 const *const base = (u8 *)image; // to bypass pointer arithmetic

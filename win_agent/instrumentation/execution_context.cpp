@@ -1,7 +1,7 @@
 #include "execution_context.hpp"
 #include <windows.h>
 
-namespace ada {
+namespace tyrecon {
 
 void *ExecutionContext::rip() const { return (void *)ctx->Rip; }
 u64 ExecutionContext::rcx() const { return ctx->Rcx; }
@@ -47,7 +47,7 @@ void *FunctionExecutionContext::return_address() const {
   return *(void **)rsp();
 }
 
-ada::StackWalker FunctionExecutionContext::stack_walk() {
-  return ada::StackWalker::attach(ctx);
+tyrecon::StackWalker FunctionExecutionContext::stack_walk() {
+  return tyrecon::StackWalker::attach(ctx);
 }
-} // namespace ada
+} // namespace tyrecon

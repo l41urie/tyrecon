@@ -22,7 +22,7 @@ int print_usage(char const *error) {
     printf("Error occured: %s\n", error);
 
   printf("Usage:\n"
-         "ada_monitor <arguments>\n"
+         "monitor <arguments>\n"
          "arguments:\n"
          "-d (Dynamic) <application name>\n"
          "-s (Static) <application name> <Command line>\n");
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
   if ((static_init != 0) == (dynamic_init != 0))
     return print_usage("no single action specified, -d or -s is required");
 
-  ada::Process proc;
+  tyrecon::Process proc;
 
   if (static_init) {
     ASSERT(argc >= static_init + 2);
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     auto p_str = p.string();
     printf("running \"%s\" (\"%s\") with cli=\"%s\"... ", application_path, p_str.c_str(), cli);
   
-    proc = ada::start_suspended_process(p_str.c_str(), cli);
+    proc = tyrecon::start_suspended_process(p_str.c_str(), cli);
     if(!proc.handle)
       return print_usage("Failed to start process");
 
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 
     printf("Attempting to attach to \"%s\"...\n", running_application);
 
-    proc = ada::get_handle_to_remote(running_application);
+    proc = tyrecon::get_handle_to_remote(running_application);
     if(!proc.handle)
       return print_usage("Failed to attach");
 
@@ -119,7 +119,7 @@ int main(int argc, char *argv[]) {
     if(static_init)
     {
       // Process is still in a suspended state, resume all threads
-      ada::for_all_threads(proc.pid, [](HANDLE h) { ResumeThread(h); });
+      tyrecon::for_all_threads(proc.pid, [](HANDLE h) { ResumeThread(h); });
     }
   }
   else

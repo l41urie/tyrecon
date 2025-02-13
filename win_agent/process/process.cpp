@@ -11,7 +11,7 @@
 #include <Psapi.h>
 #include <TlHelp32.h>
 
-namespace ada {
+namespace tyrecon {
 ForeignMemory Process::map(void *addr, size_t size) {
   return {.proc = *this,
           .remote_addr = addr,
@@ -63,7 +63,7 @@ bool ForeignMemory::get_protection(u32 &out) {
   return true;
 }
 
-ada::Process start_suspended_process(char const *path, char *cli) {
+tyrecon::Process start_suspended_process(char const *path, char *cli) {
   PROCESS_INFORMATION pi;
   memset(&pi, 0, sizeof(PROCESS_INFORMATION));
 
@@ -90,7 +90,7 @@ void for_all_threads(u32 pid, void (*fn)(HANDLE thread), DWORD flags) {
   } while (Thread32Next(snapshot, &entry));
 }
 
-ada::Process get_handle_to_remote(char const *name) {
+tyrecon::Process get_handle_to_remote(char const *name) {
   std::vector<u32> pids;
   PROCESSENTRY32 entry{};
   entry.dwSize = sizeof(entry);
@@ -110,4 +110,4 @@ ada::Process get_handle_to_remote(char const *name) {
   // TODO: select the process that doesn't have the agent loaded already
   return {OpenProcess(PROCESS_ALL_ACCESS, FALSE, pids[0]), pids[0]};
 }
-} // namespace ada
+} // namespace tyrecon

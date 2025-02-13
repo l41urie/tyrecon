@@ -3,7 +3,7 @@
 #include "functions.hpp"
 #include <vector>
 
-namespace ada {
+namespace tyrecon {
 Function rebase_rtfunction(RUNTIME_FUNCTION const *const rtfunction,
                            u8 const *const base) {
   // RUNTIME_FUNCTION consists of RVAs, rebase to modulebase
@@ -15,7 +15,7 @@ Function rebase_rtfunction(RUNTIME_FUNCTION const *const rtfunction,
   };
 }
 
-void find_functions_pdata(Module const &mod, std::vector<ada::Function> &list) {
+void find_functions_pdata(Module const &mod, std::vector<tyrecon::Function> &list) {
   // find .pdata section
   auto it =
       std::find_if(mod.sections.begin(), mod.sections.end(),
@@ -39,4 +39,4 @@ void find_functions_pdata(Module const &mod, std::vector<ada::Function> &list) {
   }
 #endif
 }
-} // namespace ada
+} // namespace tyrecon

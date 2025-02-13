@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory_block.hpp>
 
-namespace ada {
+namespace tyrecon {
 struct FunctionExecutionContext;
 struct Function;
 
@@ -15,7 +15,7 @@ enum AllocationStatus {
 };
 
 struct Allocation {
-  ada::Block memory;
+  tyrecon::Block memory;
   void *allocation_callsite;
   std::set<void *> reallocation_sites;
   AllocationStatus status;
@@ -50,4 +50,4 @@ inline AllocationList global_allocations;
 
 bool install_crt_replacements();
 void check_use_after_free(FunctionExecutionContext const &ctx, Function *fn);
-} // namespace ada
+} // namespace tyrecon

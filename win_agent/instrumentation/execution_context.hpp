@@ -5,7 +5,7 @@
 struct _EXCEPTION_POINTERS;
 struct _CONTEXT;
 
-namespace ada {
+namespace tyrecon {
 // wrapper around _CONTEXT to make usage nicer.
 struct ExecutionContext {
   _CONTEXT *ctx;
@@ -26,7 +26,7 @@ struct FunctionExecutionContext : ExecutionContext {
   u64 get_arg(u64 index) const;
   void *return_address() const;
 
-  ada::StackWalker stack_walk();
+  tyrecon::StackWalker stack_walk();
 };
 
-} // namespace ada
+} // namespace tyrecon

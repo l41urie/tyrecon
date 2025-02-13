@@ -5,7 +5,7 @@
 #include <set>
 #include <string>
 
-namespace ada {
+namespace tyrecon {
 struct Block;
 struct Module;
 
@@ -96,9 +96,9 @@ struct BaseClassDescriptor {
   u32 attributes; // flags, usually 0
 };
 
-void find_dispatch_tables(ada::Module const &mod,
-                          std::set<ada::Block> &dispatch_tables);
+void find_dispatch_tables(tyrecon::Module const &mod,
+                          std::set<tyrecon::Block> &dispatch_tables);
 
-void find_rtti(ada::Module const &mod);
+void find_rtti(tyrecon::Module const &mod);
 } // namespace rtti
-} // namespace ada
+} // namespace tyrecon

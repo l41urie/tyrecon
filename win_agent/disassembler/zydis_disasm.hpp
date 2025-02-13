@@ -2,7 +2,7 @@
 #include "meta.hpp"
 #include <Zydis/Zydis.h>
 
-namespace ada {
+namespace tyrecon {
 struct Instruction {
   ZydisDecodedInstruction info;
   ZydisDecodedOperand operands[ZYDIS_MAX_OPERAND_COUNT];
@@ -40,4 +40,4 @@ struct FunctionDisassembler {
     return true;
   }
 };
-} // namespace ada
+} // namespace tyrecon

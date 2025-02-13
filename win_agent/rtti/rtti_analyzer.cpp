@@ -5,13 +5,13 @@
 #include "type_tracking/type_tracker.hpp"
 #include "function_finder/functions.hpp"
 
-namespace ada::rtti {
+namespace tyrecon::rtti {
 /* Finds aligned pointer-tables in |containing_section|
    that point into |pointing_section|
 */
-void find_pointer_tables(ada::Block const &containing_section,
-                         ada::Block const &pointing_section,
-                         std::set<ada::Block> &tables,
+void find_pointer_tables(tyrecon::Block const &containing_section,
+                         tyrecon::Block const &pointing_section,
+                         std::set<tyrecon::Block> &tables,
                          u32 const minimum_table_size = 2) {
 
   // Walk |containing_section|
@@ -37,8 +37,8 @@ void find_pointer_tables(ada::Block const &containing_section,
   }
 }
 
-void find_dispatch_tables(ada::Module const &mod,
-                          std::set<ada::Block> &dispatch_tables) {
+void find_dispatch_tables(tyrecon::Module const &mod,
+                          std::set<tyrecon::Block> &dispatch_tables) {
   auto *text = mod.section(".text");
   auto *rdata = mod.section(".rdata");
 
@@ -55,13 +55,13 @@ void find_dispatch_tables(ada::Module const &mod,
 }
 
 // Performs dispatch table & rtti discovery
-void find_rtti(ada::Module const &mod) {
+void find_rtti(tyrecon::Module const &mod) {
   auto *text = mod.section(".text");
   auto *rdata = mod.section(".rdata");
   if (!text || !rdata)
     return;
 
-  std::set<ada::Block> tables;
+  std::set<tyrecon::Block> tables;
   rtti::find_dispatch_tables(mod, tables);
 
   for (auto const &t : tables) {
@@ -92,10 +92,10 @@ void find_rtti(ada::Module const &mod) {
     // mark every function in the table as dynamically dispatchable
     for (auto p = t.start; p < t.end; p += sizeof(void *)) {
       // try to find the corresponding function
-      if (auto fn = ada::find_function(*(void **)p)) {
+      if (auto fn = tyrecon::find_function(*(void **)p)) {
         fn->dynamic_dispatch = true;
       }
     }
   }
 }
-} // namespace ada::rtti
+} // namespace tyrecon::rtti

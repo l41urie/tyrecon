@@ -3,11 +3,11 @@
 #include <algorithm>
 #include "instrumentation/execution_context.hpp"
 
-namespace ada {
+namespace tyrecon {
 
 void TypeList::discover_rtti(rtti::CompleteObjectLocator *col,
                              rtti::TypeDescriptor *td,
-                             ada::Block const &vtable) {
+                             tyrecon::Block const &vtable) {
   Type t;
   t.vtable = vtable;
   t.rtti = col;
@@ -20,13 +20,13 @@ void TypeList::discover_rtti(rtti::CompleteObjectLocator *col,
   types.emplace_back(t);
 }
 
-void TypeList::discover_vtable(ada::Block const &vtable) {
+void TypeList::discover_vtable(tyrecon::Block const &vtable) {
   Type t;
   t.vtable = vtable;
   types.emplace_back(t);
 }
 
-void TypeList::discover_usage(ada::Allocation const &allocation, void *ptr,
+void TypeList::discover_usage(tyrecon::Allocation const &allocation, void *ptr,
                               u32 index, FunctionExecutionContext const &ctx) {
   if (allocation.status != ALLOCATED)
     return; // we won't do analysis on bad stuff.
@@ -70,4 +70,4 @@ void Type::mark_used(void *fn, u32 index) {
   printf("%p:%d = %s\n", fn, index, name.c_str());
 #endif
 }
-} // namespace ada
+} // namespace tyrecon

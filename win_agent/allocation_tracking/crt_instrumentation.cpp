@@ -2,7 +2,7 @@
 #include "instrumentation/function_replacement.hpp"
 #include <windows.h>
 
-namespace ada {
+namespace tyrecon {
 namespace replacements {
 inline FunctionReplacement<decltype(&::malloc)> malloc;
 inline FunctionReplacement<decltype(&::free)> free;
@@ -59,7 +59,7 @@ void *realloc(void *block, size_t size) {
 bool install_crt_replacements() {
 #define SETUP_REPLACEMENT(libraryfunc)                                         \
   {                                                                            \
-    if (auto replaced = ada::replace_function(::libraryfunc)) {                \
+    if (auto replaced = tyrecon::replace_function(::libraryfunc)) {                \
       replacements::libraryfunc = *replaced;                                   \
       *replaced->jmp_target = replacements::fn::libraryfunc;                   \
     } else                                                                     \
@@ -72,4 +72,4 @@ bool install_crt_replacements() {
 
   return true;
 }
-} // namespace ada
+} // namespace tyrecon

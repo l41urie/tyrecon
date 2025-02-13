@@ -1,7 +1,7 @@
 #include "../disassembler/zydis_disasm.hpp"
 #include "functions.hpp"
 
-namespace ada {
+namespace tyrecon {
 void find_leaf_functions(Module const &mod, std::vector<Function> &list) {
   // A list of functions not yet present in |list|
   std::vector<Function> leaf_functions;
@@ -71,4 +71,4 @@ void find_leaf_functions(Module const &mod, std::vector<Function> &list) {
   printf("merged to %llu functions\n", list.size());
 #endif
 }
-} // namespace ada
+} // namespace tyrecon

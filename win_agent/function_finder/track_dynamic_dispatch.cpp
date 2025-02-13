@@ -1,7 +1,7 @@
 #include "function_finder/functions.hpp"
 #include "instrumentation/execution_context.hpp"
 
-namespace ada {
+namespace tyrecon {
 void track_dynamic_dispatch(FunctionExecutionContext &ctx, Function *fn) {
   if (fn->dynamic_dispatch) {
     /* TODO: change this to capture the callstack instead
@@ -10,4 +10,4 @@ void track_dynamic_dispatch(FunctionExecutionContext &ctx, Function *fn) {
     fn->called_from.emplace(ctx.return_address());
   }
 }
-} // namespace ada
+} // namespace tyrecon

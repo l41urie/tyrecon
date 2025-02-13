@@ -4,7 +4,7 @@
 #include <functional>
 #include <windows.h>
 
-namespace ada {
+namespace tyrecon {
 static auto constexpr SINGLE_STEP_FLAG = 0x100;
 
 LONG WINAPI veh_handler(_EXCEPTION_POINTERS *eh) {
@@ -68,4 +68,4 @@ LONG WINAPI veh_handler(_EXCEPTION_POINTERS *eh) {
 }
 
 void init_veh() { AddVectoredExceptionHandler(1, veh_handler); }
-} // namespace ada
+} // namespace tyrecon

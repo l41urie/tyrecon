@@ -2,7 +2,7 @@
 #include "function_finder/functions.hpp"
 #include "instrumentation/execution_context.hpp"
 
-namespace ada {
+namespace tyrecon {
 void check_use_after_free(FunctionExecutionContext const &ctx, Function *fn) {
   auto const nparams = fn->get_parameter_count();
 
@@ -20,4 +20,4 @@ void check_use_after_free(FunctionExecutionContext const &ctx, Function *fn) {
     }
   }
 }
-} // namespace ada
+} // namespace tyrecon

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "meta.hpp"
-namespace ada {
+namespace tyrecon {
 enum ViolationType : u64 {
   ReadViolation = 0, // the thread attempted to read the inaccessible data
   WriteViolation =
@@ -19,4 +19,4 @@ struct Violation {
 
 void init_veh();
 
-} // namespace ada
+} // namespace tyrecon

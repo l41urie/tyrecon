@@ -4,7 +4,7 @@
 
 // TODO: this needs testing, im unsure if the part that splits stuff up works.
 
-namespace ada {
+namespace tyrecon {
 AllocationList::ContainerType::iterator AllocationList::find(void *ptr) {
   return std::find_if(
       allocations.begin(), allocations.end(),
@@ -94,4 +94,4 @@ void AllocationList::print_list() {
   }
 }
 
-} // namespace ada
+} // namespace tyrecon

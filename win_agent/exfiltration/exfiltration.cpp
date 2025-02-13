@@ -7,7 +7,7 @@
 #include <string>
 #include <Psapi.h>
 
-namespace ada {
+namespace tyrecon {
 std::string log;
 
 void println(char const *format, ...) {
@@ -37,7 +37,7 @@ bool format_va(void *ptr, char *buff, size_t size) {
 void exfiltrate_all() {
   println("Functions: ");
 
-  for_each_function([](const ada::Function &f) {
+  for_each_function([](const tyrecon::Function &f) {
     char function_formatted[256];
     format_va(f.start, function_formatted, 256);
 
@@ -82,8 +82,8 @@ void exfiltrate_all() {
     }
   }
 
-  std::ofstream ofs("ada.log", std::ios::trunc);
+  std::ofstream ofs("tyrecon.log", std::ios::trunc);
   ofs << log;
   ofs.close();
 }
-} // namespace ada
+} // namespace tyrecon

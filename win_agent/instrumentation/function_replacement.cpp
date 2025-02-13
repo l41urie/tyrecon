@@ -17,7 +17,7 @@ the function & copy / relocate instructions until we can fit a jump.
 #define INFO(...)
 #endif
 
-namespace ada::detail {
+namespace tyrecon::detail {
 
 // TODO: consider switching to multiple buffers
 struct CodeBuffer {
@@ -192,6 +192,6 @@ bool replace_function(void *fn, void ***jmp_to, void **copied) {
   return true;
 }
 
-} // namespace ada::detail
+} // namespace tyrecon::detail
 
-namespace ada {}
+namespace tyrecon {}

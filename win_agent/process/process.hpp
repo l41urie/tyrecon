@@ -2,7 +2,7 @@
 #include "../../shared/meta.hpp"
 #include <windows.h>
 
-namespace ada {
+namespace tyrecon {
 struct ForeignMemory;
 
 struct WrapHandle
@@ -59,10 +59,10 @@ struct ForeignMemory {
   bool get_protection(u32 &out);
 };
 
-ada::Process get_handle_to_remote(char const *name);
+tyrecon::Process get_handle_to_remote(char const *name);
 
 void for_all_threads(u32 pid, void (*fn)(HANDLE thread),
                      DWORD flags = THREAD_ALL_ACCESS);
 
-ada::Process start_suspended_process(char const *path, char *cli);
-} // namespace ada
+tyrecon::Process start_suspended_process(char const *path, char *cli);
+} // namespace tyrecon

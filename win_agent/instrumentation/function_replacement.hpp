@@ -1,7 +1,7 @@
 #pragma once
 #include <optional>
 
-namespace ada {
+namespace tyrecon {
 namespace detail {
 bool replace_function(void *fn, void ***jmp_to, void **copied);
 }
@@ -29,4 +29,4 @@ std::optional<FunctionReplacement<Fn>> replace_function(Fn fn) {
   };
 }
 
-} // namespace ada
+} // namespace tyrecon

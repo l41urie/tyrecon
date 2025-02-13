@@ -45,10 +45,10 @@ zydis
 dbghelp
 )
 
-add_executable(ada_monitor
+add_executable(monitor
 process/process.cpp
 installer/main.cpp
 )
 
-target_compile_options(win_agent PRIVATE ${ADA_COMPILE_OPTIONS})
-target_compile_options(ada_monitor PRIVATE ${ADA_COMPILE_OPTIONS})
+target_compile_options(win_agent PRIVATE ${TYRECON_COMPILE_OPTIONS})
+target_compile_options(monitor PRIVATE ${TYRECON_COMPILE_OPTIONS})

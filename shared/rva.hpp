@@ -1,14 +1,14 @@
 #include "memory_block.hpp"
 #include "meta.hpp"
 
-namespace ada {
+namespace tyrecon {
 template <typename T, typename PT = void> struct Rva {
   T addr;
 
   NODISCARDINL PT *rebase(u64 base) const { return (PT *)(base + (u64)addr); }
   NODISCARDINL PT *rebase(void *base) const { rebase((u64)base); }
 
-  NODISCARDINL PT *rebase(ada::Block const &block) const {
+  NODISCARDINL PT *rebase(tyrecon::Block const &block) const {
     auto r = rebase(block.start);
     // should we check for overflow?
 
@@ -30,4 +30,4 @@ RVA_TYPE(Rva64, u64);
 
 #undef RVA_TYPE
 
-} // namespace ada
+} // namespace tyrecon

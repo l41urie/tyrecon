@@ -1,12 +1,12 @@
 #pragma once
 #include "meta.hpp"
-namespace ada {
+namespace tyrecon {
 
 struct Block {
   u64 start = 0, end = 0;
 
   // hack to make the sorting work, beware of what you do.
-  bool operator<(ada::Block const &rhs) const { return start < rhs.start; }
+  bool operator<(tyrecon::Block const &rhs) const { return start < rhs.start; }
 
   NODISCARDINL u64 len() const { return end - start; }
   NODISCARDINL bool contains(u64 n) const { return n >= start && n < end; }
@@ -57,4 +57,4 @@ inline BlockCut BlockCut::from_intersection(Block const &full,
 
   return result;
 }
-} // namespace ada
+} // namespace tyrecon

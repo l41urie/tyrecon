@@ -11,18 +11,18 @@
 #include "rtti/rtti.hpp"
 
 /*
-  This file is meant to be a user-defined file that tells ada
+  This file is meant to be a user-defined file that specify
   what to do with the process.
 */
 
-namespace ada {
+namespace tyrecon {
 
 void configure() {
   // setup modules to monitor
   // we only care about the main program in this example
 
   // setup function table
-  ada::Module mod((void *)GetModuleHandleA("test_program.exe"));
+  tyrecon::Module mod((void *)GetModuleHandleA("test_program.exe"));
   find_functions(mod);
 
   rtti::find_rtti(mod);
@@ -35,7 +35,7 @@ void configure() {
     return;
   }
 
-  ada::for_each_function([](ada::Function const &fn) -> bool {
+  tyrecon::for_each_function([](tyrecon::Function const &fn) -> bool {
     // install Instrumentation on every function
     if (!global_instrumentations.instrument(fn)) {
 #if 0
@@ -58,4 +58,4 @@ void configure() {
       };
 }
 
-} // namespace ada
+} // namespace tyrecon

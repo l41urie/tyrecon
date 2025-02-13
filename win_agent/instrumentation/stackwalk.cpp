@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <DbgHelp.h>
 
-namespace ada {
+namespace tyrecon {
 
 StackWalker StackWalker::attach(_CONTEXT *c) {
   StackWalker result;
@@ -42,4 +42,4 @@ CallStack StackWalker::capture() {
 }
 
 StackWalker::~StackWalker() { free(frame); }
-} // namespace ada
+} // namespace tyrecon

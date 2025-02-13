@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <DbgHelp.h>
 
-namespace ada::rtti {
+namespace tyrecon::rtti {
 
 std::optional<std::string> TypeDescriptor::demangle() const {
   char buffer[1024];
@@ -16,4 +16,4 @@ std::optional<std::string> TypeDescriptor::demangle() const {
 
   return std::nullopt;
 }
-} // namespace ada::rtti
+} // namespace tyrecon::rtti

@@ -7,7 +7,7 @@
 #include <list>
 #include <string>
 
-namespace ada {
+namespace tyrecon {
 namespace rtti {
 struct CompleteObjectLocator;
 struct TypeDescriptor;
@@ -26,7 +26,7 @@ struct Type {
    - RTTI
    - Overlapping function calls (Allocated from X and Y, passed into function Z)
   */
-  std::vector<ada::CallStack> allocation_sites;
+  std::vector<tyrecon::CallStack> allocation_sites;
 #endif
 
   // Guessed size of this type in bytes, 0 if unknown.
@@ -49,10 +49,10 @@ struct Type {
   void mark_used(void *fn, u32 index);
 
   // May be null if this type does not have RTTI attached to it
-  ada::rtti::CompleteObjectLocator *rtti = nullptr;
+  tyrecon::rtti::CompleteObjectLocator *rtti = nullptr;
 
   // Most likely the vtable (may also exist when rtti = null)
-  ada::Block vtable{};
+  tyrecon::Block vtable{};
 
   /*
   TODO:
@@ -68,17 +68,17 @@ struct TypeList {
 
   // called for every discovered rtti type when scanning a module
   void discover_rtti(rtti::CompleteObjectLocator *col, rtti::TypeDescriptor *td,
-                     ada::Block const &vtable);
+                     tyrecon::Block const &vtable);
 
   // called for every discovered vtable when scanning
-  void discover_vtable(ada::Block const &vtable);
+  void discover_vtable(tyrecon::Block const &vtable);
 
   // called for every argument of any tracked function
-  void discover_usage(ada::Allocation const &allocation, void *ptr, u32 index,
+  void discover_usage(tyrecon::Allocation const &allocation, void *ptr, u32 index,
                       FunctionExecutionContext const &ctx);
 };
 
 inline TypeList global_typelist;
 
 void track_type_usage(FunctionExecutionContext &ctx, Function *fn);
-} // namespace ada
+} // namespace tyrecon

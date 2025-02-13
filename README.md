@@ -1,14 +1,13 @@
-# Ada - Automated Dataflow Analysis
+# Tyrecon - Type reconnaissance through RTTI
 
-Ada is a hackable automated debugger that attempts to provide in-depth analysis of dynamic program execution by breakpointing all functions.
+Tyrecon is a hackable automated debugger that attempts to provide in-depth analysis of dynamic program execution by breakpointing all functions.
 
 Currently, it's main features are
 1. Providing call-site analysis for Virtual functions / dynamic dispatch.
-2. Uncovering Parameter types that are pointers to composite types.
-
+2. Uncovering Parameter types that are pointers to composite types through RTTI.
 
 # Usage
-As of now, Ada needs a bunch of adjustments so you can properly analyze a binary.
+As of now, tyrecon needs a bunch of adjustments so you can properly analyze a binary.
 
 `win_agent/configuration.cpp` provides a starting point for this.
 
@@ -25,8 +24,8 @@ Prerequisites:
 
 Cloning the repository:
 ```sh
-git clone --recursive https://github.com/l41urie/ada.git
-cd ada
+git clone --recursive https://github.com/l41urie/tyrecon.git
+cd tyrecon
 
 # from here on, using vscode's cmake extension will work fine
 code .

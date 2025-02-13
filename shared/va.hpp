@@ -1,7 +1,7 @@
 #include "rva.hpp"
 #include <string>
 
-namespace ada {
+namespace tyrecon {
 struct Module;
 
 enum VAType {
@@ -17,7 +17,7 @@ template <typename T> struct NamedVa {
   // REL_MODULE -> |mod|
   VAType type;
   union {
-    ada::Module *mod;
+    tyrecon::Module *mod;
     std::string name;
   };
 
@@ -26,4 +26,4 @@ template <typename T> struct NamedVa {
     
   }
 };
-} // namespace ada
+} // namespace tyrecon

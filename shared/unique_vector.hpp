@@ -2,7 +2,7 @@
 #include "meta.hpp"
 #include <vector>
 
-namespace ada {
+namespace tyrecon {
 // Don't use this if std::set is an option
 // in our case it isn't, because we cannot sort certain things
 template <typename T> struct UniqueVec {
@@ -18,4 +18,4 @@ template <typename T> struct UniqueVec {
     return true;
   }
 };
-} // namespace ada
+} // namespace tyrecon

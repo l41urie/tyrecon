@@ -4,10 +4,10 @@
 #include <string>
 #include <vector>
 
-namespace ada {
+namespace tyrecon {
 struct Section {
   std::string name;
-  ada::Block memory_block;
+  tyrecon::Block memory_block;
 
   NODISCARDINL bool contains(void *p) const { return memory_block.contains((u64)p); }
 };
@@ -20,7 +20,7 @@ struct NamedFunction {
 struct Module {
   std::string module_path;
   std::string_view name;
-  ada::Block memory_block;
+  tyrecon::Block memory_block;
   void *image;
 
   std::vector<Section> sections;
@@ -38,4 +38,4 @@ struct Module {
 
   Module(void *image);
 };
-} // namespace ada
+} // namespace tyrecon

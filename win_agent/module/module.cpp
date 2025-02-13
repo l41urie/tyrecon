@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <Psapi.h>
 
-namespace ada {
+namespace tyrecon {
 
 Module::Module(void *image) : image(image) {
   char path[MAX_PATH];
@@ -81,4 +81,4 @@ Module::Module(void *image) : image(image) {
     }
   }
 }
-} // namespace ada
+} // namespace tyrecon

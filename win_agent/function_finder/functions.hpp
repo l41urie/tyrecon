@@ -3,7 +3,7 @@
 #include "meta.hpp"
 #include <set>
 
-namespace ada {
+namespace tyrecon {
 struct FunctionExecutionContext;
 
 enum class FunctionKind {
@@ -12,7 +12,7 @@ enum class FunctionKind {
 };
 
 struct Function {
-  // TODO: replace this with ada::Block
+  // TODO: replace this with tyrecon::Block
   // Points to the first instruction of the function
   void *start;
 
@@ -44,15 +44,15 @@ struct Function {
 
   // if the function is dynamically dispatched, we will save a unqiue set of
   // callstacks associated with this
-  // ada::UniqueVec<ada::CallStack> callstacks;
+  // tyrecon::UniqueVec<tyrecon::CallStack> callstacks;
   // stackwalking seems to be broken? fix this.
   std::set<void *> called_from;
 };
 
 void find_functions(Module const &mod);
 
-void for_each_function(bool (*cb)(ada::Function const &fn));
-ada::Function *find_function(void *start);
+void for_each_function(bool (*cb)(tyrecon::Function const &fn));
+tyrecon::Function *find_function(void *start);
 
 void track_dynamic_dispatch(FunctionExecutionContext &ctx, Function *fn);
-} // namespace ada
+} // namespace tyrecon

@@ -5,7 +5,7 @@
 // windows.h
 struct _EXCEPTION_POINTERS;
 
-namespace ada {
+namespace tyrecon {
 struct Violation;
 struct Function;
 struct FunctionExecutionContext;
@@ -34,10 +34,10 @@ struct InstrumentationHandler {
   std::vector<CodeInstrumentation> instrumented_instructions;
   FunctionInstrumentationCallbackFn *function_instrumentation_callback =
       [](FunctionExecutionContext &ctx) {};
-  bool instrument(ada::Function const &fn);
+  bool instrument(tyrecon::Function const &fn);
   CodeInstrumentation *find_code_instrumentation(Violation const &v,
                                                  _EXCEPTION_POINTERS *eh);
 };
 
 inline InstrumentationHandler global_instrumentations;
-} // namespace ada
+} // namespace tyrecon

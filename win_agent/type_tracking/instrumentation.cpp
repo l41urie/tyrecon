@@ -3,7 +3,7 @@
 #include "instrumentation/execution_context.hpp"
 #include "type_tracker.hpp"
 
-namespace ada {
+namespace tyrecon {
 
 void track_type_usage(FunctionExecutionContext &ctx, Function *fn) {
   // Walk all parameters and see if we find anything in our type list
@@ -29,4 +29,4 @@ void track_type_usage(FunctionExecutionContext &ctx, Function *fn) {
     // lookup if it's readable via VirtualQuery()?
   }
 }
-} // namespace ada
+} // namespace tyrecon

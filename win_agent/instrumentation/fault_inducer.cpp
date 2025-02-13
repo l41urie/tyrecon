@@ -5,7 +5,7 @@
 #include <optional>
 #include <windows.h>
 
-namespace ada {
+namespace tyrecon {
 
 std::optional<MEMORY_BASIC_INFORMATION>
 set_protect(void *begin, void *end, u64 (*change_prot)(u64 prot)) {
@@ -24,7 +24,7 @@ set_protect(void *begin, void *end, u64 (*change_prot)(u64 prot)) {
   return prot;
 }
 
-bool InstrumentationHandler::instrument(ada::Function const &fn) {
+bool InstrumentationHandler::instrument(tyrecon::Function const &fn) {
   auto instr = CodeInstrumentation::install(fn.start);
   if (!instr.has_value())
     return false;
@@ -91,4 +91,4 @@ std::optional<CodeInstrumentation> CodeInstrumentation::install(void *instr) {
   result.original_protection = prot.AllocationProtect;
   return result;
 }
-} // namespace ada
+} // namespace tyrecon

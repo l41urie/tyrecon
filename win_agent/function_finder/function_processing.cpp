@@ -1,7 +1,7 @@
 #include "../disassembler/zydis_disasm.hpp"
 #include "functions.hpp"
 
-namespace ada {
+namespace tyrecon {
 void process_functions(Module const &mod, std::vector<Function> &list) {
   // setup |second_instruction| field
   for (auto it = list.begin(); it != list.end();) {
@@ -23,4 +23,4 @@ void process_functions(Module const &mod, std::vector<Function> &list) {
     ++it;
   }
 }
-} // namespace ada
+} // namespace tyrecon

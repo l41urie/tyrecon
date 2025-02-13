@@ -6,7 +6,7 @@ struct _CONTEXT;
 struct _tagSTACKFRAME64;
 typedef _tagSTACKFRAME64 STACKFRAME64;
 
-namespace ada {
+namespace tyrecon {
 
 // fields from STACKFRAME64
 struct Call {
@@ -55,4 +55,4 @@ struct StackWalker {
 
   CallStack capture();
 };
-} // namespace ada
+} // namespace tyrecon

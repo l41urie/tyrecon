@@ -4,8 +4,9 @@ project(ada)
 
 add_subdirectory(contrib)
 
+set(CMAKE_CXX_STANDARD 23)
+
 set(ADA_COMPILE_OPTIONS
-    -std=c++23
 )
 
 add_subdirectory(win_agent)

@@ -64,5 +64,5 @@ tyrecon::Process get_handle_to_remote(char const *name);
 void for_all_threads(u32 pid, void (*fn)(HANDLE thread),
                      DWORD flags = THREAD_ALL_ACCESS);
 
-tyrecon::Process start_suspended_process(char const *path, char *cli);
+tyrecon::Process start_suspended_process(char const *path, char const *cli);
 } // namespace tyrecon

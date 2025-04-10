@@ -63,15 +63,18 @@ bool ForeignMemory::get_protection(u32 &out) {
   return true;
 }
 
-tyrecon::Process start_suspended_process(char const *path, char *cli) {
+tyrecon::Process start_suspended_process(char const *path, char const *cli) {
   PROCESS_INFORMATION pi;
   memset(&pi, 0, sizeof(PROCESS_INFORMATION));
 
   STARTUPINFO si;
   memset(&si, 0, sizeof(STARTUPINFO));
 
-  CreateProcess(path, cli, NULL, NULL, FALSE, CREATE_SUSPENDED | CREATE_NEW_CONSOLE, NULL, NULL, &si,
+  auto cli_dup = _strdup(cli);
+  CreateProcess(path, cli_dup, NULL, NULL, FALSE, CREATE_SUSPENDED | CREATE_NEW_CONSOLE, NULL, NULL, &si,
                 &pi);
+
+  free(cli_dup);
 
   return {pi.hProcess, pi.dwProcessId};
 }

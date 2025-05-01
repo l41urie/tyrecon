@@ -47,7 +47,6 @@ ArgumentTuple<size> inline parse_arg(int argc, char *argv[], char const *name,
   }
   return {};
 }
-
 } // namespace tyrecon::argparse
 
 #define ARG(name, count)                                                       \

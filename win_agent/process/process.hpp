@@ -33,9 +33,21 @@ struct ForeignMemory {
   Process proc;
   void *remote_addr;
   size_t size;
-  void *local_buff;
+  void *local_buff = nullptr;
 
   ~ForeignMemory();
+
+  void operator=(ForeignMemory &lhs) = delete;
+  void operator=(ForeignMemory &&lhs)
+  {
+    proc = lhs.proc;
+    remote_addr = lhs.remote_addr;
+    size = lhs.size;
+
+    auto l = local_buff;
+    local_buff = lhs.local_buff;
+    lhs.local_buff = l;
+  }
 
   bool push();
   bool pull();
@@ -43,9 +55,7 @@ struct ForeignMemory {
   void free_all();
 
   operator u8 *() { return (u8 *)local_buff; }
-
   operator char *() { return (char *)local_buff; }
-
   operator void *() { return (void *)local_buff; }
 
   template <typename T> T as() { return (T)local_buff; }
